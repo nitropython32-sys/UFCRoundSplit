@@ -1,10 +1,50 @@
 [
-  "{\n  \"time\": \"3:40\",\n  \"round\": \"1\"\n}",
-  "{\n  \"time\": 1.57,\n  \"round\": 1\n}",
-  "{\n  \"time\": \"3:35\",\n  \"round\": \"2\"\n}",
-  "{\n  \"time\": \"0:49\",\n  \"round\": \"2 of 5\"\n}",
-  "{\n  \"time\": \"2:28\",\n  \"round\": \"3 of 5\"\n}",
-  "{\n  \"time\": \"4:04\",\n  \"round\": \"4 of 5\"\n}",
-  "{\n  \"time\": \"0:37\",\n  \"round\": \"4 of 5\"\n}",
-  "{\n  \"time\": \"2:16\",\n  \"round\": \"5\"\n}"
+  {
+    "frame_index": 3096,
+    "video_time": "1:43",
+    "raw_time_seconds": 103.3032,
+    "model_response": "{\n  \"time\": \"3:40\",\n  \"round\": \"1\"\n}"
+  },
+  {
+    "frame_index": 6192,
+    "video_time": "3:26",
+    "raw_time_seconds": 206.6064,
+    "model_response": "{\n  \"time\": 1.57,\n  \"round\": 1\n}"
+  },
+  {
+    "frame_index": 12385,
+    "video_time": "6:53",
+    "raw_time_seconds": 413.2461666666667,
+    "model_response": "{\n  \"time\": \"3:35\",\n  \"round\": \"2\"\n}"
+  },
+  {
+    "frame_index": 18578,
+    "video_time": "10:19",
+    "raw_time_seconds": 619.8859333333334,
+    "model_response": "{\n  \"time\": \"0:49\",\n  \"round\": \"2 of 5\"\n}"
+  },
+  {
+    "frame_index": 24771,
+    "video_time": "13:46",
+    "raw_time_seconds": 826.5257,
+    "model_response": "{\n  \"time\": \"2:28\",\n  \"round\": \"3 of 5\"\n}"
+  },
+  {
+    "frame_index": 30964,
+    "video_time": "17:13",
+    "raw_time_seconds": 1033.1654666666666,
+    "model_response": "{\n  \"time\": \"4:04\",\n  \"round\": \"4 of 5\"\n}"
+  },
+  {
+    "frame_index": 37157,
+    "video_time": "20:39",
+    "raw_time_seconds": 1239.8052333333333,
+    "model_response": "{\n  \"time\": \"0:37\",\n  \"round\": \"4 of 5\"\n}"
+  },
+  {
+    "frame_index": 43350,
+    "video_time": "24:06",
+    "raw_time_seconds": 1446.445,
+    "model_response": "{\n  \"time\": \"2:16\",\n  \"round\": \"5\"\n}"
+  }
 ]
