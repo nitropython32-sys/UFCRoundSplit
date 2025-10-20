@@ -9,7 +9,7 @@ model = md.vl(api_key=API_KEY)
 
 # load and sample video frames
 v = Video("/home/nigel/Desktop/Projects/UFCRoundSplit/Fights/Yair Rodriguez vs The Korean Zombie Full Fight - EA Alter Egos： Prime Series 3 [W4-LEgjxokI].mp4")
-indexes = Video.get_frame_indices(v.total_len, 8)
+indexes = Video.get_frame_indices(v.total_len, 16)
 frames = [v.extract_frame(i / v.fps) for i in indexes]
 
 results = []
@@ -31,6 +31,18 @@ for i in indexes:
     })
 
 
-# save all 8 responses in one JSON file
+# Create the header
+header = {
+    "length_of_video": Video.format_time(v.total_len / v.fps),
+    "total_frames": v.total_len
+}
+
+# Combine header and results
+output_data = {
+    "header": header,
+    "results": results
+}
+
+# save all responses in one JSON file
 with open("results.json", "w") as f:
-    json.dump(results, f, indent=2)
+    json.dump(output_data, f, indent=2)
