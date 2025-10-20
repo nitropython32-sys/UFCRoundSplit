@@ -1,33 +1,8 @@
-# import re
-# import json
-
-# def get_round_entries(body, round_number):
-#     pattern = r"(\d+)"  # capture first number (handles "1" or "1 of 5")
-#     results = []
-
-#     for entry in body:
-#         model = json.loads(entry["model_response"])
-#         round_val = str(model.get("round", "")).strip()
-
-#         match = re.search(pattern, round_val)
-#         if match and int(match.group(1)) == round_number:
-#             results.append(entry)
-#     return results
-
-# # Open and load a JSON file
-# with open("/home/nigel/Desktop/Projects/UFCRoundSplit/results.json", "r") as f:
-#     data = json.load(f)
-
-# print(data)
-
-# header = data["header"]
-# body = data["results"]
-
-# for x in range(1,6):
-#     rnd = get_round_entries(body,x)
-
 import json
 import re
+
+import subprocess
+
 
 def clock_to_seconds(clock_str):
     """Convert mm:ss or m.ss to seconds."""
@@ -92,35 +67,61 @@ for c in cuts:
     print(f"Round {c['round']}: {c['start_sec']:.2f}s → {c['end_sec']:.2f}s")
 
 
+# ####now lets cut the video. 
+
+# input_path = "/home/nigel/Desktop/Projects/UFCRoundSplit/Fights/Yair Rodriguez vs The Korean Zombie Full Fight - EA Alter Egos： Prime Series 3 [W4-LEgjxokI].mp4"
+# output_path = "round1_trimmed.mp4"
+
+# # Hardcode first cut (round 1)
+# start = str(cuts[0]["start_sec"])
+# end = str(cuts[0]["end_sec"])
+
+# cmd = [
+#     "ffmpeg",
+#     "-y",
+#     "-ss", start,
+#     "-to", end,
+#     "-i", input_path,
+#     "-c", "copy",
+#     output_path
+# ]
+
+# result = subprocess.run(cmd, capture_output=True, text=True)
+
+# print("STDOUT:", result.stdout)
+# print("STDERR:", result.stderr)
+import subprocess
+import os
+
+input_path = "/home/nigel/Desktop/Projects/UFCRoundSplit/Fights/Yair Rodriguez vs The Korean Zombie Full Fight - EA Alter Egos： Prime Series 3 [W4-LEgjxokI].mp4"
+
+# Loop through all cuts and export one video per round
+for c in cuts:
+    start = str(c["start_sec"])
+    end = str(c["end_sec"])
+    round_num = c["round"]
+
+    output_path = f"round_{round_num}.mp4"
+    print(f"⏱️ Cutting Round {round_num}: {start}s → {end}s")
+
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-ss", start,
+        "-to", end,
+        "-i", input_path,
+        "-c", "copy",
+        output_path
+    ]
+
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    # Optional: log result
+    if result.returncode == 0:
+        print(f"✅ Saved {output_path}")
+    else:
+        print(f"⚠️ Error on round {round_num}: {result.stderr[:200]}")
+
+print("🎬 All rounds processed.")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def rnd_data(text):
-#     pattern = r"(\d+)(?:\s*of\s*(\d+))?"
-
-#     match = re.search(pattern, text)
-#     if match:
-#         current = int(match.group(1))
-#         total = int(match.group(2)) if match.group(2) else None
-#         # print(current, total)
-#     return int(current)
-##so we need to extract all the rounds we have
-# rnd = set()
-# for x in range(len(body)):
-#     test = json.loads(body[x]["model_response"])
-#     try:
-#         rnd.add(int(test["round"]))
-#     except:
-#         rnd.add(rnd_data(test["round"]))
