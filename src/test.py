@@ -1,7 +1,7 @@
 import json
 import re
-
 import subprocess
+import os
 
 
 def clock_to_seconds(clock_str):
@@ -57,41 +57,15 @@ for rnd, entries in sorted(rounds.items()):
 
 # --- Infer end times from next round starts ---
 for i in range(len(cuts)):
-    if i < len(cuts) - 1:
-        cuts[i]["end_sec"] = cuts[i + 1]["start_sec"]
+    if i < len(cuts):
+        cuts[i]["end_sec"] = (300.+cuts[i]["start_sec"])
     else:
-        cuts[i]["end_sec"] = float(data["header"]["total_frames"]) / 30.0  # rough estimate if fps ~30
+        cuts[i]["end_sec"] = float(data["header"]["total_frames"]) /29.97  # rough estimate if fps ~30
 
 # --- Print result ---
 for c in cuts:
     print(f"Round {c['round']}: {c['start_sec']:.2f}s → {c['end_sec']:.2f}s")
 
-
-# ####now lets cut the video. 
-
-# input_path = "/home/nigel/Desktop/Projects/UFCRoundSplit/Fights/Yair Rodriguez vs The Korean Zombie Full Fight - EA Alter Egos： Prime Series 3 [W4-LEgjxokI].mp4"
-# output_path = "round1_trimmed.mp4"
-
-# # Hardcode first cut (round 1)
-# start = str(cuts[0]["start_sec"])
-# end = str(cuts[0]["end_sec"])
-
-# cmd = [
-#     "ffmpeg",
-#     "-y",
-#     "-ss", start,
-#     "-to", end,
-#     "-i", input_path,
-#     "-c", "copy",
-#     output_path
-# ]
-
-# result = subprocess.run(cmd, capture_output=True, text=True)
-
-# print("STDOUT:", result.stdout)
-# print("STDERR:", result.stderr)
-import subprocess
-import os
 
 input_path = "/home/nigel/Desktop/Projects/UFCRoundSplit/Fights/Yair Rodriguez vs The Korean Zombie Full Fight - EA Alter Egos： Prime Series 3 [W4-LEgjxokI].mp4"
 

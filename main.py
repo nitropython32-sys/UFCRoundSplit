@@ -9,7 +9,7 @@ model = md.vl(api_key=API_KEY)
 
 # load and sample video frames
 v = Video("/home/nigel/Desktop/Projects/UFCRoundSplit/Fights/Yair Rodriguez vs The Korean Zombie Full Fight - EA Alter Egos： Prime Series 3 [W4-LEgjxokI].mp4")
-indexes = Video.get_frame_indices(v.total_len, 16)
+indexes = Video.get_frame_indices(v.total_len, 20)
 frames = [v.extract_frame(i / v.fps) for i in indexes]
 
 results = []
