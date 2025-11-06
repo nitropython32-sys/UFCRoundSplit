@@ -1,12 +1,14 @@
 import json
 import os
 import re
+import time
+import urllib.error
 from generate_data import DataGenerator
 
 def regex_match_time(a, b):
-    if a is None or b is None:
-        return False
     a, b = str(a).strip(), str(b).strip()
+    if "none" in (a.lower(), b.lower()):
+        return a.lower() == b.lower()
     if ":" not in a or ":" not in b:
         return False
     a = re.sub(r"\s+", "", a)
@@ -14,12 +16,25 @@ def regex_match_time(a, b):
     return a == b
 
 def regex_match_round(a, b):
-    if a is None or b is None:
-        return False
     a, b = str(a).lower().strip(), str(b).lower().strip()
+
+    # handle None/null
+    if "none" in (a, b):
+        return a == b
+
+    # extract first digit (e.g. '2' from '2nd', '2 of 5', etc.)
+    num_a = re.search(r"\d+", a)
+    num_b = re.search(r"\d+", b)
+
+    if num_a and num_b:
+        return num_a.group() == num_b.group()
+
+    # fallback to loose text match
     a = re.sub(r"[^a-z0-9]", "", a)
     b = re.sub(r"[^a-z0-9]", "", b)
     return bool(re.search(b, a)) or bool(re.search(a, b))
+
+
 
 # Change to your desired path
 os.chdir("/home/nigel/Desktop/Projects/UFCRoundSplit/test/test_data")
@@ -38,7 +53,19 @@ for x in files:
     )
 
     path = os.path.join("/home/nigel/Desktop/Projects/UFCRoundSplit/Fights", x)
-    result = test_model.get_video_results(path + ".mp4")
+
+    for attempt in range(3):
+        try:
+            result = test_model.get_video_results(path + ".mp4")
+            break  # success → skips else
+        except urllib.error.URLError as e:
+            print(f"⚠️ Network error while processing {x} (attempt {attempt+1}/3): {e}")
+            time.sleep(3)
+    else:
+        print(f"❌ Failed to process {x} after 3 attempts, skipping...")
+        continue
+
+
     test_data = result["results"]
 
     os.chdir(x)

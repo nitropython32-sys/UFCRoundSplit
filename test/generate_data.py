@@ -12,6 +12,8 @@ class DataGenerator:
         self.fights_dir = fights_dir
         self.test_data_dir = test_data_dir
         self.model = md.vl(api_key=API_KEY)
+        with open(os.path.join(os.path.dirname(__file__), 'prompt.txt'), 'r') as f:
+            self.prompt = f.read()
 
     def get_video_results(self, video_path):
         v = Video(video_path)
@@ -23,11 +25,7 @@ class DataGenerator:
             timestamp = i / v.fps
             img = Image.fromarray(frames[idx])
             
-            answer = self.model.query(img, '''inside this image is a UFC fight, I need you to find the time clock. inside the time clock its should 
-                            the time of the round and what round `it is. rounds are between 1-3 or 1-5 depending on if its a championship fight or not.
-                            something to remember is sometimes you wont see a time clock at all and sometimes the fight the will be in between
-                            rounds as well. if thats the case return a null in json format else
-                            Return the time and rnd in json format''')["answer"]
+            answer = self.model.query(img, self.prompt)["answer"]
 
             results.append({
                 "frame_index": i,
@@ -72,11 +70,7 @@ class DataGenerator:
                 # Save the frame as an image
                 img.save(os.path.join(output_dir, f"{idx}.jpg"))
 
-                answer = self.model.query(img, '''inside this image is a UFC fight, I need you to find the time clock. inside the time clock its should 
-                                the time of the round and what round `it is. rounds are between 1-3 or 1-5 depending on if its a championship fight or not.
-                                something to remember is sometimes you wont see a time clock at all and sometimes the fight the will be in between
-                                rounds as well. if thats the case return a null in json format else
-                                Return the time and rnd in json format''')["answer"]
+                answer = self.model.query(img, self.prompt)["answer"]
 
                 results.append({
                     "frame_index": i,
