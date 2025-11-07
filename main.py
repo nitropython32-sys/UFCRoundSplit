@@ -17,11 +17,25 @@ for i in indexes:
     timestamp = i / v.fps
     img = Image.fromarray(frames[indexes.index(i)])
     
-    answer = model.query(img, """inside this image is a UFC fight, I need you to find the time clock. inside the time clock its should 
-                     the time of the round and what round `it is. rounds are between 1-3 or 1-5 depending on if its a championship fight or not.
-                     something to remember is sometimes you wont see a time clock at all and sometimes the fight the will be in between
-                     rounds as well. if thats the case return a null in json format else
-                     Return the time and rnd in json format""")["answer"]
+    answer = model.query(img, """You are a vision-language model. Examine the image carefully.
+
+        Task:
+        1. Determine if a UFC time clock is visible on screen.
+        2. The clock normally shows both:
+        - The time remaining in the round (e.g., "4:12", "2:07")
+        - The round indicator (e.g., "1 of 3", "2 of 5", or a small group of white lines).
+        3. If a time clock is visible:
+        - Return a JSON object in this format:
+            {"time": "<time_remaining>", "round": "<round_number_or_label>"}
+        4. If **no clock** is visible (e.g., between rounds, replays, or ads):
+        - Return exactly this JSON:
+            {"time": null, "round": null}
+
+        Rules:
+        - You must NEVER guess values. If the clock is unclear, cropped, or partially hidden, treat it as missing.
+        - Do not write explanations or extra text outside the JSON.
+        - Your entire output must be **valid JSON only**.
+        """)["answer"]
 
     results.append({
         "frame_index": i,
