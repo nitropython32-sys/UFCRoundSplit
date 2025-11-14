@@ -5,22 +5,10 @@
   },
   "results": [
     {
-      "frame_index": 1548,
-      "video_time": "0:51",
-      "raw_time_seconds": 51.6516,
-      "model_response": "{\n  \"time\": \"4:32\",\n  \"round\": \"1 of 5\"\n}"
-    },
-    {
       "frame_index": 3096,
       "video_time": "1:43",
       "raw_time_seconds": 103.3032,
       "model_response": "{\n  \"time\": \"3:40\",\n  \"round\": \"1 of 5\"\n}"
-    },
-    {
-      "frame_index": 4644,
-      "video_time": "2:34",
-      "raw_time_seconds": 154.9548,
-      "model_response": "{\n  \"time\": \"2:48\",\n  \"round\": \"1 of 5\"\n}"
     },
     {
       "frame_index": 6192,
@@ -29,34 +17,16 @@
       "model_response": "{\n  \"time\": \"1:57\",\n  \"round\": \"1 of 5\"\n}"
     },
     {
-      "frame_index": 7741,
-      "video_time": "4:18",
-      "raw_time_seconds": 258.29136666666665,
-      "model_response": "{\n  \"time\": \"1:05\",\n  \"round\": \"1 of 5\"\n}"
-    },
-    {
       "frame_index": 9289,
       "video_time": "5:09",
       "raw_time_seconds": 309.9429666666667,
       "model_response": "{\n  \"time\": \"0:13\",\n  \"round\": \"1 of 5\"\n}"
     },
     {
-      "frame_index": 10837,
-      "video_time": "6:01",
-      "raw_time_seconds": 361.59456666666665,
-      "model_response": "{\n  \"time\": \"4:27\",\n  \"round\": \"2 of 5\"\n}"
-    },
-    {
       "frame_index": 12385,
       "video_time": "6:53",
       "raw_time_seconds": 413.2461666666667,
       "model_response": "{\n  \"time\": \"3:35\",\n  \"round\": \"2 of 5\"\n}"
-    },
-    {
-      "frame_index": 13934,
-      "video_time": "7:44",
-      "raw_time_seconds": 464.9311333333333,
-      "model_response": "{\n  \"time\": \"3:23\",\n  \"round\": \"2 of 5\"\n}"
     },
     {
       "frame_index": 15482,
@@ -95,34 +65,16 @@
       "model_response": "{\n  \"time\": \"4:04\",\n  \"round\": \"4 of 5\"\n}"
     },
     {
-      "frame_index": 34061,
-      "video_time": "18:56",
-      "raw_time_seconds": 1136.5020333333334,
-      "model_response": "{\n  \"time\": \"2:21\",\n  \"round\": \"4 of 5\"\n}"
-    },
-    {
       "frame_index": 37157,
       "video_time": "20:39",
       "raw_time_seconds": 1239.8052333333333,
       "model_response": "{\n  \"time\": \"0:37\",\n  \"round\": \"4 of 5\"\n}"
     },
     {
-      "frame_index": 40254,
-      "video_time": "22:23",
-      "raw_time_seconds": 1343.1418,
-      "model_response": "{\n  \"time\": \"3:59\",\n  \"round\": \"5 of 5\"\n}"
-    },
-    {
       "frame_index": 43350,
       "video_time": "24:06",
       "raw_time_seconds": 1446.445,
       "model_response": "{\n  \"time\": \"2:16\",\n  \"round\": \"5 of 5\"\n}"
-    },
-    {
-      "frame_index": 46447,
-      "video_time": "25:49",
-      "raw_time_seconds": 1549.7815666666668,
-      "model_response": "{\n  \"time\": \"0:33\",\n  \"round\": \"5 of 5\"\n}"
     }
   ]
 }

@@ -5,15 +5,39 @@ import time
 import urllib.error
 from generate_data import DataGenerator
 
-def regex_match_time(a, b):
-    a, b = str(a).strip(), str(b).strip()
-    if "none" in (a.lower(), b.lower()):
-        return a.lower() == b.lower()
-    if ":" not in a or ":" not in b:
-        return False
-    a = re.sub(r"\s+", "", a)
-    b = re.sub(r"\s+", "", b)
-    return a == b
+def _extract_time_seconds(s: str | None):
+    if s is None:
+        return None
+    s = str(s)
+    if s.strip().lower() == "none":
+        return None
+    # grab the first time-looking chunk anywhere in the string
+    m = re.search(r'(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?', s)
+    if not m:
+        return None
+    h, mnt, sec = m.groups()
+    if sec is None:
+        # mm:ss
+        minutes = int(h)
+        seconds = int(mnt)
+        return minutes * 60 + seconds
+    else:
+        # hh:mm:ss
+        hours = int(h)
+        minutes = int(mnt)
+        seconds = int(sec)
+        return hours * 3600 + minutes * 60 + seconds
+
+def regex_match_time(a, b, tol_seconds: int = 0):
+    ta = _extract_time_seconds(a)
+    tb = _extract_time_seconds(b)
+
+    # handle None/null consistently
+    if ta is None or tb is None:
+        return (a is None or str(a).strip().lower() == "none") and \
+               (b is None or str(b).strip().lower() == "none")
+
+    return abs(ta - tb) <= tol_seconds
 
 def regex_match_round(a, b):
     a, b = str(a).lower().strip(), str(b).lower().strip()
